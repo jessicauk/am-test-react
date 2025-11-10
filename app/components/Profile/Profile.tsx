@@ -1,58 +1,53 @@
-import type { Character } from "rickmortyapi";
+import { lazy } from "react";
 import Image from "next/image";
 import styles from "./Profile.module.css";
-import Item from "../Item/Item.module";
-import ListItem from "../ListItem/ListItem";
-import Status from "../Status/Status";
 
-interface ProfileProps {
-  data?: any[];
-}
-const Profile = (props: ProfileProps) => {
-  //console.log("Profile props data:", props.data);
-  const item = props.data && props.data.length > 0 ? props.data[0] : undefined;
+import { useSelector } from "react-redux";
+import { RootState } from "../../lib/store";
 
-  const keysToKeep = ['episode', 'gender', 'origin', 'location'];
+const Item = lazy(() => import("../Item/Item.module"));
+const ListItem = lazy(() => import("../ListItem/ListItem"));
+const Status = lazy(() => import("../Status/Status"));
 
-  const filtered = Object.fromEntries(
-    item ? Object.entries(item).filter(([key]) => keysToKeep.includes(key)) : []
+const Profile = () => {
+  const selectedCharacter = useSelector(
+    (state: RootState) => state.selected.character
   );
 
-const list = [
+  const props = selectedCharacter;
+
+  const list = [
     {
-    title: 'Origin',
-    value: 'Alien Spa',
-  }, 
-   {
-    title: 'Location',
-    value: 'Earth',
-  }, 
-   {
-    title: 'Gender',
-    value: 'Male',
-  }, 
-   {
-    title: 'Episodes',
-    value: 132,
-  }, 
-
-];
-
-console.log("profile:", item);
+      title: "Origin",
+      value: props?.origin.name || "Unknown",
+    },
+    {
+      title: "Location",
+      value: props?.location.name || "Unknown",
+    },
+    {
+      title: "Gender",
+      value: props?.gender || "Unknown",
+    },
+    {
+      title: "Episode",
+      value: props?.episode.length || 0,
+    },
+  ];
 
   return (
     <>
       <Image
         className={styles.image}
-        src={item ? item.image : "/background.jpg"}
+        src={props ? props.image : "/background.jpg"}
         alt="profile image"
         width={800}
         height={800}
         priority={true}
       />
-      <Status />
+      <Status isAlive={props?.isAlive || false} />
       <div className={styles.information}>
-        <Item title={item?.name} value={item?.species} info={""}/>
+        <Item title={props?.name || ""} value={props?.species || 0} info={""} />
         <ListItem data={list} />
       </div>
     </>

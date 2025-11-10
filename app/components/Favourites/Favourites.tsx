@@ -1,12 +1,32 @@
-
-
-import styles from './Favourites.module.css';
+import styles from "./Favourites.module.css";
 import Image from "next/image";
-import Heart from '../Icons/Heart/Heart';
-import Search from '../Icons/Search/Search';
-import FavouriteList from '../FavouriteList/FavouriteList';
+import Heart from "../Icons/Heart/Heart";
+import Search from "../Icons/Search/Search";
+import FavouriteList from "../FavouriteList/FavouriteList";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState, AppDispatch } from "../../lib/store";
+import {
+  addFavorite,
+  removeFavorite,
+} from "../../lib/features/favorites/favoritesSlice";
+import type { Character } from "../../lib/types";
+import { lazy } from "react";
 
-const Favourites = () => {
+const Card = lazy(() => import("../Card/Card"));
+
+interface FavouritesProps {
+  data: Character[];
+}
+
+const Favourites = ({ data }: FavouritesProps) => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  const favorites = useSelector(
+    (state: RootState) => state.favorites.favorites
+  );
+
+  /* const isFavorite = favorites.some((f) => f.id === data.id); */
+
   return (
     <div className={styles.container}>
       <div className={styles.searchWrapper}>
@@ -16,36 +36,11 @@ const Favourites = () => {
         </div>
       </div>
       <div className={`${styles.cardsWrapper}`}>
-        {[1,2,3,4,5,6].map((_, index) => (
-        <div key={index} className={styles.card}>
-          <p>MORTY</p>
-          <Image
-            src="https://rickandmortyapi.com/api/character/avatar/2.jpeg"
-            alt="character"
-            width={145}
-            height={145}
-            priority={true}
-          />
-          <div className={styles.likeWrapper}>
-            <Heart />
-            <p>Like</p>
+        {data.map((item) => (
+          <div key={item.id} className={styles.card}>
+            <Card {...item} />
           </div>
-        </div>
-      ))}
-      <div className={styles.card}>
-        <p>RICK</p>
-        <Image
-          src="https://rickandmortyapi.com/api/character/avatar/1.jpeg"
-          alt="character"
-          width={145}
-          height={145}
-          priority={true}
-        />
-        <div className={styles.likeWrapper}>
-          <Heart />
-          <p>Like</p> 
-        </div>
-      </div>
+        ))}
       </div>
       <div className={`${styles.listWrapper}`}>
         <FavouriteList />

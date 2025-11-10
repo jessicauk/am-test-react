@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Image from "next/image";
 import "./globals.css";
+import StoreProvider from "./storeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,17 +26,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} background`}>
-        <Image
-          className="logo"
-          src="/logo.png"
-          alt="logo"
-          width={332}
-          height={95}
-          priority={true}
-        />
-        <div className="green-band"/>
-        {children}
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} background`}
+      >
+        <StoreProvider>
+          <Image
+            className="logo"
+            src="/logo.png"
+            alt="logo"
+            width={332}
+            height={95}
+            priority={true}
+          />
+          <div className="green-band" />
+          {children}
+        </StoreProvider>
       </body>
     </html>
   );

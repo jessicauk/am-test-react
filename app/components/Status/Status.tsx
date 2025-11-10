@@ -1,14 +1,14 @@
 import styles from './Status.module.css';
 
 interface StatusProps {
-    isLive?: boolean;
+    isAlive?: boolean;
 }
 
-const Status = ({isLive}: StatusProps) => {
+const Status = ({isAlive}: StatusProps) => {
   return (
     <div className={styles.status}>
-      <div className={`${styles.indicator} ${!isLive ? styles.alive : styles.dead}`}/>
-      {!isLive ? "LIVE" : "DEATH"}
+      <div className={`${styles.indicator} ${isAlive ? styles.alive : styles.dead}`}/>
+      {isAlive ? "LIVE" : "DEATH"}
     </div>
   )
 };
