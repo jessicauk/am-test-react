@@ -1,0 +1,33 @@
+.primaryText {
+  color: var(--text-primary-color);
+  font-weight: var(--text-card-weigth);
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 0;
+}
+
+.secondaryText {
+ color: var(--text-secondary-color);
+  font-weight: var(--text-secondary-weigth);
+  font-size: 11px;
+  line-height: 25px;
+  letter-spacing: 0;
+  display: block;
+}
+
+@media (min-width: 1024px) {
+  .primaryText {
+  font-weight: var(--text-card-weigth);
+  font-size: var(--text-primary-size);
+  line-height: 19px;
+}
+
+.secondaryText {
+  color: var(--text-secondary-color);
+  font-weight: var(--text-secondary-weigth);
+  font-size: var(--text-secondary-size);
+  line-height: 25px;
+  letter-spacing: 0;
+  display: block;
+}
+}

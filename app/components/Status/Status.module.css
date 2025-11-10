@@ -1,0 +1,62 @@
+.status {
+  position: relative;
+  height: 28px;
+  width: 100px;
+  top: -310px;
+  left: 60px;
+  background-color: #1A1A1A;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.indicator {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 8px;
+  border-radius: 50%;
+}
+
+.dead {
+  background: radial-gradient(circle, #E92507, #7C1616);
+}
+
+.alive {
+  background: radial-gradient(circle, #F1F510, #608F09);
+}
+
+@media (min-width: 1024px) {
+
+  .status {
+  position: relative;
+  height: 28px;
+  width: 100px;
+  top: -650px;
+  left: 20px;
+  background-color: #1A1A1A;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.indicator {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 8px;
+  border-radius: 50%;
+}
+
+.dead {
+  background: radial-gradient(circle, #E92507, #7C1616);
+}
+
+.alive {
+  background: radial-gradient(circle, #F1F510, #608F09);
+}
+}

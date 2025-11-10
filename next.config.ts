@@ -10,6 +10,7 @@ const nextConfig: NextConfig = {
       pathname: '/api/character/avatar/**',
     }]
   },
+  
 };
 
 export default nextConfig;

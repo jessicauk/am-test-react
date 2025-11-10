@@ -5,11 +5,12 @@ import * as shlaami from 'rickmortyapi';
 import type { Character } from 'rickmortyapi';
 import { useEffect, useState, lazy } from "react";
 
-const Profile = lazy(() => import('./components/profile/profile'));
-const Favorites = lazy(() => import('./components/favourites/favourites'));
+const Profile = lazy(() => import('./components/Profile/Profile'));
+const Favorites = lazy(() => import('./components/Favourites/Favourites'));
+const FavouriteList = lazy(() => import('./components/FavouriteList/FavouriteList'));
 
 export default function Home() {
-  const [data, setData] = useState<Character[]>([]);
+  const [data, setData] = useState<any[]>([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -30,11 +31,19 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <main className={styles.main}>
-        <section className={styles.section}>
+        <section className={`${styles.section} ${styles.wrapper}`}>
           <Profile data={data}/>
         </section>
-        <section className={styles.section}>
+        <section className={`${styles.section} ${styles.wrapperFavorites}`} >
           <Favorites />
+        </section>
+        <section className={`${styles.section} ${styles.wrapperButton}`}>
+          <div className={`${styles.listWrapper}`}>
+            <FavouriteList />
+          </div>
+          <div className={styles.buttonWrapper}>
+            <button className={styles.button}>FAVS</button>
+          </div>
         </section>
       </main>
     </div>

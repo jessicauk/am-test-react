@@ -5,6 +5,20 @@
   --dark-green: #1E2E00;
   --background-main: #1C1C1C;
   --border: #000;
+  --text-primary-color: #76DD00;
+  --text-secondary-color: #FFFFFF;
+  --gray: #4F4F4FCC;
+  --ligth-gray: #5B5454;
+  --medium-gray: #212121CC;
+
+  --scroll-ligth-gray: #7B7B7BB2;
+
+  --text-primary-weigth: 400;
+  --text-secondary-weigth: 400;
+  --text-card-weigth: 500;
+
+  --text-primary-size:20px;
+  --text-secondary-size:16px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -32,7 +46,28 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.background {
+.logo {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  margin: auto;
+  width: 400px;
+  height: 15%;
+}
+
+.green-band {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  z-index: 5;
+  background: linear-gradient(var(--ligth-green), var(--dark-green)); 
+}
+
+@media (min-width: 1024px) {
+  .background {
   background: url("/background.jpg");
   background-size: cover;
   background-repeat: round;
@@ -48,10 +83,12 @@ a {
 }
 
 .logo {
+  display: inline-block;
   position: fixed;
   top: 2.5rem;
   right: 25rem;
   z-index: 1;
+  margin: none;
 }
 
 .green-band {
@@ -61,12 +98,164 @@ a {
   width: 100%;
   height: 135px;
   z-index: 3;
-  background: linear-gradient(var(--ligth-green), var(--dark-green));
-  
+  background: linear-gradient(var(--ligth-green), var(--dark-green)); 
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    /* color-scheme: dark; */
-  }
+.primaryText {
+  color: var(--text-primary-color);
+  font-weight: var(--text-primary-weigth);
+  font-size: var(--text-primary-size);
+  font-style: Regular;
+  line-height: 19px;
+  letter-spacing: 0%;
 }
+
+.secondaryText {
+  color: var(--text-secondary-color);
+  font-weight: var(--text-secondary-weigth);
+  font-size: var(--text-secondary-size);
+  font-style: Regular;
+  line-height: 19px;
+  letter-spacing: 0%;
+  display: block;
+}
+
+/* Scrollbar base */
+::-webkit-scrollbar {
+  width: 32px;
+  height: 32px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Flecha arriba */
+::-webkit-scrollbar-button:vertical:start {
+  height: 16px;
+  background-image: url('/arrow-up-dynamic.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 12px;
+  background-color: var(--scroll-ligth-gray);
+  color: white; /* color por defecto del icono */
+  cursor: pointer;
+}
+
+/* Flecha abajo */
+::-webkit-scrollbar-button:vertical:end {
+  height: 16px;
+  background-image: url('/arrow-down-dynamic.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 12px;
+  background-color: var(--scroll-ligth-gray);
+  color: white;
+  cursor: pointer;
+}
+
+/* Hover */
+::-webkit-scrollbar-button:hover {
+  color: #69e900; /* cambia color del icono */
+  background-color: #333; /* opcional: fondo al hacer hover */
+}
+
+/* Click (active) */
+::-webkit-scrollbar-button:active {
+  color: #00ffcc;
+  background-color: #1e1e1e;
+}
+}
+
+
+.background {
+  background: url("/background.jpg");
+  background-size: cover;
+  background-repeat: round;
+  background-position-x: right 750px;
+  overflow: hidden;
+  height: 100vh;
+  width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+/* .green-band {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  z-index: 3;
+  background: linear-gradient(var(--ligth-green), var(--dark-green)); 
+} */
+
+.primaryText {
+  color: var(--text-primary-color);
+  font-weight: var(--text-primary-weigth);
+  font-size: var(--text-primary-size);
+  font-style: Regular;
+  line-height: 19px;
+  letter-spacing: 0%;
+}
+
+.secondaryText {
+  color: var(--text-secondary-color);
+  font-weight: var(--text-secondary-weigth);
+  font-size: var(--text-secondary-size);
+  font-style: Regular;
+  line-height: 19px;
+  letter-spacing: 0%;
+  display: block;
+}
+
+/* Scrollbar base */
+::-webkit-scrollbar {
+  width: 32px;
+  height: 32px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Flecha arriba */
+::-webkit-scrollbar-button:vertical:start {
+  height: 16px;
+  background-image: url('/arrow-up-dynamic.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 12px;
+  background-color: var(--scroll-ligth-gray);
+  color: white; /* color por defecto del icono */
+  cursor: pointer;
+}
+
+/* Flecha abajo */
+::-webkit-scrollbar-button:vertical:end {
+  height: 16px;
+  background-image: url('/arrow-down-dynamic.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 12px;
+  background-color: var(--scroll-ligth-gray);
+  color: white;
+  cursor: pointer;
+}
+
+/* Hover */
+::-webkit-scrollbar-button:hover {
+  color: #69e900; /* cambia color del icono */
+  background-color: #333; /* opcional: fondo al hacer hover */
+}
+
+/* Click (active) */
+::-webkit-scrollbar-button:active {
+  color: #00ffcc;
+  background-color: #1e1e1e;
+}
+
