@@ -84,8 +84,9 @@ const Favourites = (props: FavouritesProps) => {
       </div>
       <div className={`${styles.cardsWrapper}`}>
         {favoritesLocal && favoritesLocal?.map((item) => (
-          <div key={item.id} className={styles.card}>
+          <div key={item.id} className={styles.card} data-testid={`card-${item?.name.split(" ")[0]}`}>
             <Card
+              data-testid={`card-select-${item?.name}`}
               {...item}
               onClick={() => updatedFavorites(item)}
               onClickSelect={() => onClickSelect(item)}
