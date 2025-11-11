@@ -6,6 +6,7 @@ interface HeartProps {
 export default function Heart({ onClick, className }: HeartProps) {
   return (
     <svg
+      data-testid="heart-icon"
       className={className}
       onClick={onClick}
       width="24"

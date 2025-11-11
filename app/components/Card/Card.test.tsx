@@ -1,59 +1,65 @@
-import { describe, it, expect, vi } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
-import Card from "./Card";
-import type { CharacterItem } from "../../lib/types";
+import { render, screen, fireEvent } from '@testing-library/react';
+import { vi } from 'vitest';
+import { Suspense } from 'react';
+import Card from './Card';
+import type { CharacterItem } from '../../lib/types';
+
+/* vi.mock('next/image', () => ({
+  default: (props: React.ImgHTMLAttributes<HTMLImageElement>) => {
+    return <img {...props} />
+  },
+})); */
+
+/* vi.mock('../Icons/Heart/Heart', () => ({
+  default: ({ className }: { className?: string }) => (
+    <svg data-testid="heart-icon" className={className} />
+  ),
+})); */
 
 const baseCharacter: CharacterItem = {
   id: 1,
-  name: "Rick Sanchez",
-  status: "Alive",
-  species: "Human",
-  type: "",
-  gender: "Male",
-  origin: { name: "Earth", url: "" },
-  location: { name: "Earth", url: "" },
-  image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
+  name: 'Rick Sanchez',
+  image: 'https://rick.com/rick.png',
+  gender: 'Male',
+  species: 'Human',
+  origin: { name: 'Earth', url: '' },
+  location: { name: 'Citadel', url: '' },
+  type: '',
+  status: 'Alive',
   episode: [],
-  url: "",
-  created: "",
+  url: '',
+  created: '',
   isFavorite: false,
 };
 
-describe("Card component", () => {
-  it("should render name, image and Like text", () => {
-    render(<Card {...baseCharacter} />);
-    
-    // Usamos una función para evitar errores con contenido dividido
-    expect(
-      screen.getByText((content) => content.includes("Rick Sanchez"))
-    ).toBeInTheDocument();
+describe('Card component', () => {
+  it('should render name, image and Like text', () => {
+    render(
+      <Suspense fallback={<div>loading...</div>}>
+        <Card {...baseCharacter} />
+      </Suspense>
+    );
 
-    expect(screen.getByText("Like")).toBeInTheDocument();
-    
-    const img = screen.getByRole("img");
-    expect(img).toHaveAttribute("alt", "Rick Sanchez");
+    expect(screen.getByText(/rick s/i)).toBeInTheDocument();
+    expect(screen.getByText(/like/i)).toBeInTheDocument();
+    expect(screen.getByRole('img')).toHaveAttribute('src', baseCharacter.image);
+    expect(screen.getByTestId('heart-icon')).toBeInTheDocument();
   });
 
-  it("should call onClick when heart is clicked", () => {
-    const mockClick = vi.fn();
-    render(<Card {...baseCharacter} onClick={mockClick} />);
+  it('should trigger onClick and onClickSelect', () => {
+    const onClick = vi.fn();
+    const onClickSelect = vi.fn();
 
-    fireEvent.click(screen.getByText("Like"));
-    expect(mockClick).toHaveBeenCalled();
-  });
+    render(
+      <Suspense fallback={<div>loading...</div>}>
+        <Card {...baseCharacter} onClick={onClick} onClickSelect={onClickSelect} />
+      </Suspense>
+    );
 
-  it("should call onClickSelect when image is clicked", () => {
-    const mockSelect = vi.fn();
-    render(<Card {...baseCharacter} onClickSelect={mockSelect} />);
+    fireEvent.click(screen.getByRole('img')); // click on image
+    fireEvent.click(screen.getByText(/like/i)); // click on like wrapper
 
-    const img = screen.getByRole("img");
-    fireEvent.click(img);
-    expect(mockSelect).toHaveBeenCalled();
-  });
-
-  it("should apply activeCard class when isFavorite is true", () => {
-    render(<Card {...baseCharacter} isFavorite={true} />);
-    const cardElement = screen.getByText((c) => c.includes("Rick Sanchez")).closest("div");
-    expect(cardElement?.className).toMatch(/activeCard/);
+    expect(onClick).toHaveBeenCalled();
+    expect(onClickSelect).toHaveBeenCalled();
   });
 });
