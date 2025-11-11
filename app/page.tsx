@@ -2,20 +2,21 @@
 
 import styles from "./page.module.css";
 import * as shlaami from 'rickmortyapi';
-import type { Character } from './lib/types';
+import type { CharacterItem } from './lib/types';
 import { useEffect, useState, lazy } from "react";
 import type { AppDispatch } from '../app/lib/store';
 import { useDispatch } from "react-redux";
 import {
   setSelectedCharacter
 } from "./lib/features/selected/selectedSlice";
+import { addFavorites, clearFavorites } from "./lib/features/favorites/favoritesSlice";
 
 const Profile = lazy(() => import('./components/Profile/Profile'));
 const Favorites = lazy(() => import('./components/Favourites/Favourites'));
 const FavouriteList = lazy(() => import('./components/FavouriteList/FavouriteList'));
 
 export default function Home() {
-  const [data, setData] = useState<Character[]>([]);
+  const [data, setData] = useState<CharacterItem[]>([]);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -25,12 +26,18 @@ export default function Home() {
         console.log('Fetched characters:', response);
         const characters = response?.data.results || [];
         console.log('Character data:', characters);
-        setData(characters.map((char) => ({
-          ...char,
-          isAlive: char.status === 'Alive',
-        })));
+        
+        
         if (characters.length > 0) {
-          setSelectedCharacter(characters[0]);
+          const formattedData = characters.map((char) => ({
+            ...char,
+            isAlive: char.status === 'Alive',
+            isFavorite: false,
+          }));
+          console.log('Formatted character data:', formattedData);
+          setData(formattedData);
+          dispatch(clearFavorites());
+          dispatch(addFavorites(formattedData));
         }
       } catch (error) {
         console.error('Error fetching characters:', error);
@@ -42,7 +49,8 @@ export default function Home() {
 
   useEffect(() => {
     if (data.length > 0) {
-      dispatch(setSelectedCharacter({...data[0], isAlive: data[0].status === 'Alive'}) );
+      const firstCharacter = data[0];
+      dispatch(setSelectedCharacter({ ...firstCharacter }) );
     }
   }, [data, dispatch]);
 

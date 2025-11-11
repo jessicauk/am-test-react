@@ -121,6 +121,10 @@ input:focus, input:focus-visible  {
   position: fixed;
 }
 
+.active {
+  color: red
+}
+
 @media (min-width: 1024px) {
     .container {
   display: grid;

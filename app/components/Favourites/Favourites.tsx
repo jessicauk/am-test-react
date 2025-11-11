@@ -1,6 +1,4 @@
 import styles from "./Favourites.module.css";
-import Image from "next/image";
-import Heart from "../Icons/Heart/Heart";
 import Search from "../Icons/Search/Search";
 import FavouriteList from "../FavouriteList/FavouriteList";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,13 +7,14 @@ import {
   addFavorite,
   removeFavorite,
 } from "../../lib/features/favorites/favoritesSlice";
-import type { Character } from "../../lib/types";
+import { setSelectedCharacter } from "../../lib/features/selected/selectedSlice";
+import type { CharacterItem } from "../../lib/types";
 import { lazy } from "react";
 
 const Card = lazy(() => import("../Card/Card"));
 
 interface FavouritesProps {
-  data: Character[];
+  data: CharacterItem[];
 }
 
 const Favourites = ({ data }: FavouritesProps) => {
@@ -25,7 +24,30 @@ const Favourites = ({ data }: FavouritesProps) => {
     (state: RootState) => state.favorites.favorites
   );
 
+  /* const isFavorite = favorites.length > 0 ? favorites.some((f) => f.id === data[0].id) : false; */
+
+  const onClickFavorite = (item: CharacterItem) => {
+    console.log("Clicked favorite for item:", item);
+    /* if (item.isFavorite) {
+      dispatch(removeFavorite(item));
+    } else {
+      dispatch(addFavorite(item));
+    } */
+    dispatch(addFavorite(item));
+  }
+
+  const onClickSelect = (data: CharacterItem) => {
+    dispatch(setSelectedCharacter(data));
+  }
+
+  const onClickShowList = () => {
+    // Logic to open favorites list
+  }
+
   /* const isFavorite = favorites.some((f) => f.id === data.id); */
+
+ // console.log("Favourites component data:", data);
+  console.log("Favourites from store:", favorites);
 
   return (
     <div className={styles.container}>
@@ -36,17 +58,17 @@ const Favourites = ({ data }: FavouritesProps) => {
         </div>
       </div>
       <div className={`${styles.cardsWrapper}`}>
-        {data.map((item) => (
+        {favorites?.map((item) => (
           <div key={item.id} className={styles.card}>
-            <Card {...item} />
+            <Card {...item} onClick={() => onClickFavorite(item)} onClickSelect={() => onClickSelect(item)}/>
           </div>
         ))}
       </div>
       <div className={`${styles.listWrapper}`}>
         <FavouriteList />
       </div>
-      <div className={styles.buttonWrapper}>
-        <button className={styles.button}>FAVS</button>
+      <div className={`${styles.buttonWrapper}`}>
+        <button className={styles.button} onClick={onClickShowList}>FAVS</button>
       </div>
     </div>
   );

@@ -1,21 +1,5 @@
-export interface Character {
-  id: number;
-  name: string;
-  image: string;
-  status: string;
-  species: string | number;
+import type { Character } from "rickmortyapi";
+export interface CharacterItem extends Character {
+  isFavorite?: boolean;
   isAlive?: boolean;
-  created: string;
-  gender: string;
-  origin: {
-    name: string;
-    url: string;
-  };
-  location: {
-    name: string;
-    url: string;
-  };
-  episode: string[];
-  url: string;
-  type: string;
 }

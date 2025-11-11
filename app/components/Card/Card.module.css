@@ -4,7 +4,7 @@
   grid-auto-columns: 500px;
   justify-content: center;
   place-items: center;
-  gap: 10px
+  gap: 10px;
 }
 
 .card {
@@ -45,7 +45,6 @@
   overflow: hidden;
   height: 172px;
   grid-auto-rows: 240px;
-
 }
 
 .searchWrapper {
@@ -82,12 +81,13 @@ input::placeholder {
   color: var(--text-primary-color);
 }
 
-input:focus, input:focus-visible  {
+input:focus,
+input:focus-visible {
   outline: none;
 }
 
 .buttonWrapper {
-    display: none;
+  display: none;
 }
 .button {
   cursor: pointer;
@@ -104,7 +104,6 @@ input:focus, input:focus-visible  {
   color: var(--text-primary-color);
 }
 
-
 .likeWrapper {
   display: flex;
   flex-direction: row;
@@ -119,125 +118,132 @@ input:focus, input:focus-visible  {
   align-items: center;
   width: 20%;
   position: fixed;
+}
+
+.active {
+  color: #e40000;
+}
+
+.activeCard {
+  border: 2px solid var(--text-primary-color);
 }
 
 @media (min-width: 1024px) {
-    .container {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  grid-auto-columns: 500px;
-  gap: 1.5rem;
-  justify-content: center;
-  place-items: center;
-}
+  .container {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-auto-columns: 500px;
+    gap: 1.5rem;
+    justify-content: center;
+    place-items: center;
+  }
 
-.card {
-  width: 190px;
-  height: 226px;
-  background: var(--medium-gray);
-  border-radius: 30px;
-  text-align: center;
-  box-shadow: 15px 15px 30px 0px #191919;
-  opacity: 80%;
-  color: var(--text-secondary-color);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-}
+  .card {
+    width: 190px;
+    height: 226px;
+    background: var(--medium-gray);
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 15px 15px 30px 0px #191919;
+    opacity: 80%;
+    color: var(--text-secondary-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+  }
 
-.card:hover {
-  background-color: var(--gray);
-  cursor: pointer;
-}
+  .card:hover {
+    background-color: var(--gray);
+    cursor: pointer;
+  }
 
-.cardsWrapper {
-  display: grid;
-  grid-auto-flow: row;
-  grid-template-columns: repeat(2, 1fr);
-  grid-column-gap: 20px;
-  grid-row-gap: 10px;
-  place-self: stretch;
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
-  overflow: auto;
-  height: 480px;
-  grid-auto-rows: 240px;
+  .cardsWrapper {
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 20px;
+    grid-row-gap: 10px;
+    place-self: stretch;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    overflow: auto;
+    height: 480px;
+    grid-auto-rows: 240px;
+  }
 
-}
+  .searchWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
 
-.searchWrapper {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
+  .searchWrapper svg {
+    color: var(--text-primary-color);
+    margin-inline-end: 10px;
+    vertical-align: middle;
+  }
 
-.searchWrapper svg {
-  color: var(--text-primary-color);
-  margin-inline-end: 10px;
-  vertical-align: middle;
-}
+  .search {
+    margin-bottom: 1rem;
+    height: 56px;
+    width: 240px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border-radius: 8px;
+    border: 1px solid var(--text-primary-color);
+    align-items: center;
+  }
 
-.search {
-  margin-bottom: 1rem;
-  height: 56px;
-  width: 240px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  border-radius: 8px;
-  border: 1px solid var(--text-primary-color);
-  align-items: center;
-}
+  .search input {
+    background: transparent;
+    border: none;
+    color: var(--text-primary-color);
+  }
 
-.search input {
-  background: transparent;
-  border: none;
-  color: var(--text-primary-color);
-}
+  input::placeholder {
+    color: var(--text-primary-color);
+  }
 
-input::placeholder {
-  color: var(--text-primary-color);
-}
+  input:focus,
+  input:focus-visible {
+    outline: none;
+  }
 
-input:focus, input:focus-visible  {
-  outline: none;
-}
+  .button {
+    cursor: pointer;
+    width: 200px;
+    height: 40px;
+    background: var(--ligth-gray);
+    border-radius: 10px;
+    color: var(--text-secondary-color);
+    font-size: var(--text-secondary-size);
+    border: none;
+  }
 
-.button {
-  cursor: pointer;
-  width: 200px;
-  height: 40px;
-  background: var(--ligth-gray);
-  border-radius: 10px;
-  color: var(--text-secondary-color);
-  font-size: var(--text-secondary-size);
-  border: none;
-}
+  .button:hover {
+    color: var(--text-primary-color);
+  }
 
-.button:hover {
-  color: var(--text-primary-color);
-}
-
-.buttonWrapper {
+  .buttonWrapper {
     display: inline-block;
-}
+  }
 
+  .likeWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+  }
 
-.likeWrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-}
-
-.listWrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 20%;
-  position: fixed;
-}
+  .listWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    position: fixed;
+  }
 }

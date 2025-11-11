@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import favoritesReducer from './features/favorites/favoritesSlice'
 import selectedReducer from './features/selected/selectedSlice'
+import showListReducer from './features/showList/showListSlice'
 
 export const makeStore = () => {
   return configureStore({
@@ -8,6 +9,7 @@ export const makeStore = () => {
         // Add your slices here
         favorites: favoritesReducer,
         selected: selectedReducer,
+        showList: showListReducer,
     },
   })
 }

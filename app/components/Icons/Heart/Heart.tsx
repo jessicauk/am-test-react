@@ -1,6 +1,13 @@
-export default function Heart() {
+interface HeartProps {
+  onClick?: () => void;
+  className: string;
+}
+
+export default function Heart({ onClick, className }: HeartProps) {
   return (
     <svg
+      className={className}
+      onClick={onClick}
       width="24"
       height="21"
       viewBox="0 0 24 21"
