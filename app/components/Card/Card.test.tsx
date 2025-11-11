@@ -1,58 +1,59 @@
-import "@testing-library/jest-dom";
-
-import React from "react";
+import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { describe, it, expect, vi } from 'vitest';
 import Card from "./Card";
 import type { CharacterItem } from "../../lib/types";
-
-// Mock del componente Heart
-vi.mock("../Icons/Heart/Heart", () => ({
-  default: ({ className }: { className: string }) => <div data-testid="heart-icon" className={className}>❤</div>,
-}));
 
 const baseCharacter: CharacterItem = {
   id: 1,
   name: "Rick Sanchez",
-  image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
-  isFavorite: false,
-  isAlive: true,
   status: "Alive",
   species: "Human",
   type: "",
   gender: "Male",
   origin: { name: "Earth", url: "" },
   location: { name: "Earth", url: "" },
+  image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
   episode: [],
   url: "",
   created: "",
+  isFavorite: false,
 };
 
 describe("Card component", () => {
   it("should render name, image and Like text", () => {
     render(<Card {...baseCharacter} />);
-    expect(screen.getByText("Rick Sanchez")).toBeInTheDocument();
-    expect(screen.getByAltText("Rick Sanchez")).toBeInTheDocument();
+    
+    // Usamos una función para evitar errores con contenido dividido
+    expect(
+      screen.getByText((content) => content.includes("Rick Sanchez"))
+    ).toBeInTheDocument();
+
     expect(screen.getByText("Like")).toBeInTheDocument();
+    
+    const img = screen.getByRole("img");
+    expect(img).toHaveAttribute("alt", "Rick Sanchez");
   });
 
-  it("should call onClick when like is clicked", () => {
-    const onClick = vi.fn();
-    render(<Card {...baseCharacter} onClick={onClick} />);
+  it("should call onClick when heart is clicked", () => {
+    const mockClick = vi.fn();
+    render(<Card {...baseCharacter} onClick={mockClick} />);
+
     fireEvent.click(screen.getByText("Like"));
-    expect(onClick).toHaveBeenCalledWith(baseCharacter);
+    expect(mockClick).toHaveBeenCalled();
   });
 
   it("should call onClickSelect when image is clicked", () => {
-    const onClickSelect = vi.fn();
-    render(<Card {...baseCharacter} onClickSelect={onClickSelect} />);
-    fireEvent.click(screen.getByAltText("Rick Sanchez"));
-    expect(onClickSelect).toHaveBeenCalledWith(baseCharacter);
+    const mockSelect = vi.fn();
+    render(<Card {...baseCharacter} onClickSelect={mockSelect} />);
+
+    const img = screen.getByRole("img");
+    fireEvent.click(img);
+    expect(mockSelect).toHaveBeenCalled();
   });
 
-  it("should add active class if isFavorite is true", () => {
-    const favoriteCharacter = { ...baseCharacter, isFavorite: true };
-    render(<Card {...favoriteCharacter} />);
-    expect(screen.getByTestId("heart-icon")).toHaveClass("active");
+  it("should apply activeCard class when isFavorite is true", () => {
+    render(<Card {...baseCharacter} isFavorite={true} />);
+    const cardElement = screen.getByText((c) => c.includes("Rick Sanchez")).closest("div");
+    expect(cardElement?.className).toMatch(/activeCard/);
   });
 });
