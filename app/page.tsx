@@ -1,27 +1,33 @@
 "use client";
 
 import styles from "./page.module.css";
-// import * as shlaami from "rickmortyapi"; Test
 import type { CharacterItem } from "./lib/types";
-import { useEffect, useState, lazy } from "react";
+import { useEffect, useState } from "react";
 import type { AppDispatch } from "../app/lib/store";
 import { useDispatch } from "react-redux";
 import { setSelectedCharacter } from "./lib/features/selected/selectedSlice";
 import {
   addFavorites,
   clearFavorites,
+  hydrateFavorites,
 } from "./lib/features/favorites/favoritesSlice";
 import { showList } from "./lib/features/showList/showListSlice";
 import { API } from "./const";
 
-const Profile = lazy(() => import("./components/Profile/Profile"));
-const Favorites = lazy(() => import("./components/Favourites/Favourites"));
+// Import components directly for better hydration
+import Profile from "./components/Profile/Profile";
+import Favorites from "./components/Favourites/Favourites";
 
 export default function Home() {
   const [data, setData] = useState<CharacterItem[]>([]);
   const dispatch = useDispatch<AppDispatch>();
 
+  // Hydrate the store on client side
   useEffect(() => {
+    dispatch(hydrateFavorites());
+  }, [dispatch]);
+
+  useEffect(() => {    
     async function fetchData() {
       try {
         console.log("Fetching data from API:", process.env.NEXT_PUBLIC_API_URL);
@@ -45,7 +51,7 @@ export default function Home() {
     }
 
     fetchData();
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (data.length > 0) {

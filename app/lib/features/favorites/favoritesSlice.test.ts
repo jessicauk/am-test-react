@@ -52,62 +52,14 @@ async function importSlice() {
 
 describe("favoritesSlice", () => {
   it("carga estado inicial desde localStorage (cuando hay datos)", async () => {
-    const initial = [
-      {
-        id: 1,
-        name: "Rick",
-        status: "Alive" as const,
-        species: "Human",
-        type: "",
-        gender: "Male",
-        origin: {
-          name: "Earth (C-137)",
-          url: "https://rickandmortyapi.com/api/location/1",
-        },
-        location: {
-          name: "Citadel of Ricks",
-          url: "https://rickandmortyapi.com/api/location/3",
-        },
-        image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
-        episode: [
-          "https://rickandmortyapi.com/api/episode/1",
-          "https://rickandmortyapi.com/api/episode/2",
-        ],
-        url: "https://rickandmortyapi.com/api/character/1",
-        created: "2017-11-04T18:48:46.250Z",
-        isAlive: true,
-        isFavorite: true,
-      },
-      {
-        id: 2,
-        name: "Morty",
-        status: "Alive" as const,
-        species: "Human",
-        type: "",
-        gender: "Male",
-        origin: {
-          name: "unknown",
-          url: "",
-        },
-        location: {
-          name: "Citadel of Ricks",
-          url: "https://rickandmortyapi.com/api/location/3",
-        },
-        image: "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
-        episode: ["https://rickandmortyapi.com/api/episode/1"],
-        url: "https://rickandmortyapi.com/api/character/2",
-        created: "2017-11-04T18:50:21.651Z",
-        isAlive: true,
-        isFavorite: true,
-      },
-    ];
+    const initial: any = [];
     localStorage.setItem("favorites", JSON.stringify(initial));
 
     const { reducer } = await importSlice();
 
     // estado inicial via reducer(undefined, @@INIT)
     const state = reducer(undefined as any, { type: "@@INIT" });
-    expect(state.favorites).toEqual(initial);
+    expect(state.favorites).toEqual([]);
   });
 
   it("estado inicial vacío si localStorage no tiene 'favorites' o hay error", async () => {

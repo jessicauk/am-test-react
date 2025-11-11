@@ -1,6 +1,6 @@
 'use client';
 
-import { lazy, useMemo, useEffect } from "react";
+import { useMemo } from "react";
 import styles from "./Favourites.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../lib/store";
@@ -11,11 +11,11 @@ import { setFilterText } from "../../lib/features/filter/filter";
 import type { CharacterItem } from "../../lib/types";
 import { API } from "../../const";
 
-
-const Card = lazy(() => import("../Card/Card"));
-const User = lazy(() => import("../Icons/User/User"));
-const FavouriteList = lazy(() => import("../FavouriteList/FavouriteList"));
-const Search = lazy(() => import("../Icons/Search/Search"));
+// Import components directly instead of lazy loading for critical render
+import Card from "../Card/Card";
+import User from "../Icons/User/User";
+import FavouriteList from "../FavouriteList/FavouriteList";
+import Search from "../Icons/Search/Search";
 
 interface FavouritesProps {
   data: CharacterItem[];

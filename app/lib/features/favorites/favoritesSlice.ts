@@ -3,34 +3,40 @@ import type { CharacterItem } from '../../types';
 
 interface FavoritesState {
   favorites: CharacterItem[];
+  isHydrated: boolean;
 }
 
-// Carga inicial desde localStorage
-const loadFromLocalStorage = (): CharacterItem[] => {
-  try {
-    const data = localStorage.getItem('favorites');
-    return data ? JSON.parse(data) : [];
-  } catch {
-    return [];
-  }
-};
-
 const initialState: FavoritesState = {
-  favorites: typeof window !== 'undefined' ? loadFromLocalStorage() : [],
+  favorites: [],
+  isHydrated: false,
 };
 
 const favoritesSlice = createSlice({
   name: 'favorites',
   initialState,
   reducers: {
+    hydrateFavorites: (state) => {
+      if (typeof window !== 'undefined' && !state.isHydrated) {
+        try {
+          const data = localStorage.getItem('favorites');
+          state.favorites = data ? JSON.parse(data) : [];
+        } catch {
+          state.favorites = [];
+        }
+        state.isHydrated = true;
+      }
+    },
     addFavorites: (state, action: PayloadAction<CharacterItem[]>) => {
-        state.favorites.push(...action.payload);
-        if (typeof window !== 'undefined') localStorage.setItem('favorites', JSON.stringify(state.favorites));
-      
+      state.favorites.push(...action.payload);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('favorites', JSON.stringify(state.favorites));
+      }
     },
     clearFavorites: (state) => {
       state.favorites = [];
-      if (typeof window !== 'undefined') localStorage.removeItem('favorites');
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('favorites');
+      }
     },
     addFavorite: (state, action: PayloadAction<CharacterItem>) => {
       const index = state.favorites.findIndex(f => f.id === action.payload.id);
@@ -46,10 +52,12 @@ const favoritesSlice = createSlice({
         });
       }
 
-      if (typeof window !== 'undefined') localStorage.setItem('favorites', JSON.stringify(state.favorites));
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('favorites', JSON.stringify(state.favorites));
+      }
     },
   },
 });
 
-export const { addFavorite, clearFavorites, addFavorites } = favoritesSlice.actions;
+export const { addFavorite, clearFavorites, addFavorites, hydrateFavorites } = favoritesSlice.actions;
 export default favoritesSlice.reducer;
