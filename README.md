@@ -24,7 +24,7 @@ cd am-test-react
 npm install
 
 ```
-### 2. Correr el servidor frontend
+### 3. Correr el servidor frontend
 
 ```bash
 
@@ -32,7 +32,7 @@ npm run dev
 
 ```
 
-### 3. Correr el servidor backend en otra terminal
+### 4. Correr el servidor backend en otra terminal
 
 ```bash
 
@@ -40,7 +40,7 @@ npm run json-server
 
 ```
 
-### 4. Correr test
+### 5. Correr test
 
 ```bash
 
@@ -62,7 +62,9 @@ npm run test:cov
 ```bash
 
 [-] Los estilos tal cual la especificación para el diseño del scroll.
+
 [-] Hubiera agregado tal vez un paginador y una funcionalidad para ordenamiento de los personajes o filtros más especificos.
+
 [-] También un overlay y un evento que ocultara la lista de favoritos.
 
 ```
