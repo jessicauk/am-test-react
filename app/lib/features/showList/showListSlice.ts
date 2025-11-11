@@ -14,7 +14,7 @@ const showListSlice = createSlice({
   reducers: {
     showList: (state) => {
       state.show = !state.show;
-      localStorage.setItem('show', JSON.stringify(state.show));
+      if (typeof window !== 'undefined') localStorage.setItem('show', JSON.stringify(state.show));
     },
     
   },

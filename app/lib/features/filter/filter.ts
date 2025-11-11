@@ -14,7 +14,7 @@ const filterTexttSlice = createSlice({
   reducers: {
     setFilterText: (state, action: PayloadAction<string>) => {
         state.text = action.payload;
-        localStorage.setItem('filter', JSON.stringify(state.text));
+        if (typeof window !== 'undefined') localStorage.setItem('filter', JSON.stringify(state.text));
     },
     
   },

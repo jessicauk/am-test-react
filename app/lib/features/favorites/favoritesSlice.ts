@@ -25,12 +25,12 @@ const favoritesSlice = createSlice({
   reducers: {
     addFavorites: (state, action: PayloadAction<CharacterItem[]>) => {
         state.favorites.push(...action.payload);
-        localStorage.setItem('favorites', JSON.stringify(state.favorites));
+        if (typeof window !== 'undefined') localStorage.setItem('favorites', JSON.stringify(state.favorites));
       
     },
     clearFavorites: (state) => {
       state.favorites = [];
-      localStorage.removeItem('favorites');
+      if (typeof window !== 'undefined') localStorage.removeItem('favorites');
     },
     addFavorite: (state, action: PayloadAction<CharacterItem>) => {
       const index = state.favorites.findIndex(f => f.id === action.payload.id);
@@ -46,7 +46,7 @@ const favoritesSlice = createSlice({
         });
       }
 
-      localStorage.setItem('favorites', JSON.stringify(state.favorites));
+      if (typeof window !== 'undefined') localStorage.setItem('favorites', JSON.stringify(state.favorites));
     },
   },
 });
