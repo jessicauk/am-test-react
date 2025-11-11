@@ -1,5 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import type { Character } from "../../types";
+import { createSlice } from "@reduxjs/toolkit";
 
 interface SelectedState {
   show: boolean;
@@ -14,14 +13,13 @@ const showListSlice = createSlice({
   initialState,
   reducers: {
     showList: (state) => {
-      state.show = true;
+      state.show = !state.show;
+      localStorage.setItem('show', JSON.stringify(state.show));
     },
-    hideList: (state) => {
-      state.show = false;
-    },
+    
   },
 });
 
-export const { showList, hideList } =
+export const { showList } =
   showListSlice.actions;
 export default showListSlice.reducer;

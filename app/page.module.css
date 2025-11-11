@@ -4,6 +4,8 @@
   align-items: center;
   justify-content: center;
   font-family: var(--font-geist-sans);
+  min-width: 320px;
+  max-width: 100%;
 }
 
 
@@ -35,7 +37,6 @@
 
 .section {
   width: 100%;
-  /* height: 100%; */
 }
 
 .section:first-child {

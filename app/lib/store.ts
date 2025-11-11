@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import favoritesReducer from './features/favorites/favoritesSlice'
 import selectedReducer from './features/selected/selectedSlice'
 import showListReducer from './features/showList/showListSlice'
+import filterReducer from './features/filter/filter'
 
 export const makeStore = () => {
   return configureStore({
@@ -10,6 +11,7 @@ export const makeStore = () => {
         favorites: favoritesReducer,
         selected: selectedReducer,
         showList: showListReducer,
+        filter: filterReducer,
     },
   })
 }

@@ -9,7 +9,6 @@ interface ListProps {
 }
 
 const ListItem = ({ data }: ListProps) => {
-  console.log("List data:", data);
   return (<div className={styles.container}>
   {
     data && data.length > 0 ? (

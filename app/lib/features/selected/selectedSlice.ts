@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import type { Character } from "../../types";
+import type { CharacterItem } from "../../types";
 
 interface SelectedState {
-  character: Character | null;
+  character: CharacterItem | null;
 }
 
 const initialState: SelectedState = {
@@ -13,7 +13,7 @@ const selectedSlice = createSlice({
   name: "selected",
   initialState,
   reducers: {
-    setSelectedCharacter: (state, action: PayloadAction<Character>) => {
+    setSelectedCharacter: (state, action: PayloadAction<CharacterItem>) => {
       state.character = action.payload;
     },
     clearSelectedCharacter: (state) => {

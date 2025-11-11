@@ -6,7 +6,7 @@
   height: 160px;
   box-sizing: border-box;
   padding-block: 8px;
-  display: none;
+  /* display: none; */
 }
 
 .list p {
@@ -40,4 +40,19 @@
 
 .listItem:hover {
   background-color: #85888a;
+}
+
+.show {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
+
+.empty {
+  color: white;
+  text-align: center;
+  margin-top: 50px;
+  font-size: 18px;
 }

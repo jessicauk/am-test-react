@@ -1,6 +1,11 @@
-export default function Trash() {
+interface TrashProps {
+  onClick?: () => void;
+}
+
+export default function Trash({ onClick}: TrashProps) {
   return (
     <svg
+      onClick={onClick}
       width="15"
       height="21"
       viewBox="0 0 15 21"
